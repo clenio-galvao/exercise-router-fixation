@@ -2,9 +2,18 @@ import React, { Component } from 'react';
 import Home from './Home';
 import About from './About';
 import Users from './Users';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import StrictAccess from './StrictAccess';
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 
 class App extends Component {
+  constructor() {
+    super();
+
+    this.user = { 
+      username: 'Joao',
+      password: 123,
+    }
+  }
   render() {
     return (
       <BrowserRouter>
@@ -12,11 +21,12 @@ class App extends Component {
           <Route exact path="/" component={Home}/>
           <Route path="/about" component={About}/>
           <Route path="/users/:id" render={(props) => <Users {...props} greetingMessage="Good Morning" />} />
+          <Route path="/strictaccess" render={(props) => <StrictAccess {...props} user={ this.user } />} />
         </Switch>
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/users/1">Users</a>
-        
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
+        <Link to="/users/100">Users</Link>
+        <Link to="/strictaccess">StrictAccess</Link>
       </BrowserRouter>
     );
   }
